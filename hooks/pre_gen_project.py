@@ -15,5 +15,6 @@ if not re.match(MODULE_REGEX, module_name):
 
 importer_name = '{{ cookiecutter.postprocessor_name}}'
 if not postprocessor_name.startswith("postprocessor_"):
+    print(postprocessor_name)
     print('\nERROR: The postprocessor_name must start with the "postprocessor_" prefix')
     sys.exit(1)
