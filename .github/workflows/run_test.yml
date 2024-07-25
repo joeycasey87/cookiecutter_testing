@@ -43,13 +43,13 @@ jobs:
           brew update
           brew install gcc@9
           gcc-9 --version
-          pip install git+https://github.com/pySTEPS/pysteps@importer_plugins_support
+          pip install git+https://github.com/pySTEPS/pysteps
           python -c "import pysteps"
 
       - name: Install pysteps on Windows and Linux
         if: matrix.os != 'macos-latest'
         run: |
-          pip install git+https://github.com/pySTEPS/pysteps@importer_plugins_support
+          pip install git+https://github.com/pySTEPS/pysteps
           python -c "import pysteps"
 
       - name: Run tests
