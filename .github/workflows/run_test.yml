@@ -41,6 +41,7 @@ jobs:
         run: |
           brew update-reset
           brew update
+          brew upgrade
           brew install gcc@9
           gcc-9 --version
           pip install git+https://github.com/pySTEPS/pysteps
