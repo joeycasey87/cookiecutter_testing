@@ -13,7 +13,7 @@ def test_plugins_discovery():
 
 
     plugin_name = '{{cookiecutter.plugin_name}}'
-    if plugin_name == "importer"
+    if plugin_name == "importer":
         new_importers = ["{{cookiecutter.plugin_name }}_xxx"]
         for importer in new_importers:
             assert importer.replace("import_", "") in io_interface._importer_methods
