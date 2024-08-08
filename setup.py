@@ -10,7 +10,7 @@ setup(
     author="PySteps developers",
     license="BSD",
     keywords=["cookiecutter", "template", "pysteps", "plugin"],
-    python_requires=">=3.6",
+    python_requires=">=3.9",
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Science/Research",
