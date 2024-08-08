@@ -34,6 +34,8 @@ def bake_in_temp_dir(cookies, *args, **kwargs):
         cookie to be baked and its temporal files will be removed
     """
     result = cookies.bake(*args, **kwargs)
+    if result is None:
+        raise ValueError("Baking failed, no result was produced.")
     try:
         yield result
     finally:
