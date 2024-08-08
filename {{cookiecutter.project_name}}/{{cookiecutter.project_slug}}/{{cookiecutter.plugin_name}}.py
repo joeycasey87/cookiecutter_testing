@@ -80,165 +80,165 @@ from pysteps.decorators import postprocess_import
 #
 #
 
-if cookiecutter.plugin_name == "importer":
-    @postprocess_import()
-    def {{cookiecutter.plugin_name }}_xxx(filename, keyword1="some_keyword", keyword2=10, **kwargs):
-        """
-        A detailed description of the importer. A minimal documentation is
-        strictly needed since the pysteps importers interface expect docstrings.
+# if cookiecutter.plugin_name == "importer":
+@postprocess_import()
+def {{cookiecutter.plugin_name }}_xxx(filename, keyword1="some_keyword", keyword2=10, **kwargs):
+    """
+    A detailed description of the importer. A minimal documentation is
+    strictly needed since the pysteps importers interface expect docstrings.
 
-        For example, a documentation may look like this:
+    For example, a documentation may look like this:
 
-        Import a precipitation field from the Awesome Bureau of Composites stored in
-        Grib format.
+    Import a precipitation field from the Awesome Bureau of Composites stored in
+    Grib format.
 
-        Parameters
-        ----------
-        filename : str
-            Name of the file to import.
+    Parameters
+    ----------
+    filename : str
+        Name of the file to import.
 
-        keyword1 : str
-            Some keyword used to fine control the importer behavior.
+    keyword1 : str
+        Some keyword used to fine control the importer behavior.
 
-        keyword2 : int
-            Another keyword used to fine control the importer behavior.
+    keyword2 : int
+        Another keyword used to fine control the importer behavior.
 
-        {extra_kwargs_doc}
+    {extra_kwargs_doc}
 
-        ####################################################################################
-        # The {extra_kwargs_doc} above is needed to add default keywords added to this     #
-        # importer by the pysteps.decorator.postprocess_import decorator.                  #
-        # IMPORTANT: Remove these box in the final version of this function                #
-        ####################################################################################
+    ####################################################################################
+    # The {extra_kwargs_doc} above is needed to add default keywords added to this     #
+    # importer by the pysteps.decorator.postprocess_import decorator.                  #
+    # IMPORTANT: Remove these box in the final version of this function                #
+    ####################################################################################
 
-        Returns
-        -------
-        precipitation : 2D array, float32
-            Precipitation field in mm/h. The dimensions are [latitude, longitude].
-        quality : 2D array or None
-            If no quality information is available, set to None.
-        metadata : dict
-            Associated metadata (pixel sizes, map projections, etc.).
-        """
+    Returns
+    -------
+    precipitation : 2D array, float32
+        Precipitation field in mm/h. The dimensions are [latitude, longitude].
+    quality : 2D array or None
+        If no quality information is available, set to None.
+    metadata : dict
+        Associated metadata (pixel sizes, map projections, etc.).
+    """
 
-        ### Uncomment the next lines if pyproj is needed for the importer
-        # if not PYPROJ_IMPORTED:
-        #     raise MissingOptionalDependency(
-        #         "pyproj package is required by {{cookiecutter.importer_name }}_xxx
-        #         "but it is not installed"
-        #     )
+    ### Uncomment the next lines if pyproj is needed for the importer
+    # if not PYPROJ_IMPORTED:
+    #     raise MissingOptionalDependency(
+    #         "pyproj package is required by {{cookiecutter.importer_name }}_xxx
+    #         "but it is not installed"
+    #     )
 
-        ####################################################################################
-        # Add the code to read the precipitation data here. Note that only cartesian grid
-        # are supported by pysteps!
+    ####################################################################################
+    # Add the code to read the precipitation data here. Note that only cartesian grid
+    # are supported by pysteps!
 
-        # In this example, we are going create a precipitation fields of only zeros.
-        precip = np.zeros((100, 100), dtype="double")
-        # The "double" precision is used in this example to indicate that the imaginary
-        # grib file stores the data using double precision.
+    # In this example, we are going create a precipitation fields of only zeros.
+    precip = np.zeros((100, 100), dtype="double")
+    # The "double" precision is used in this example to indicate that the imaginary
+    # grib file stores the data using double precision.
 
-        # Quality field, should have the same dimensions of the precipitation field.
-        # Use None is not information is available.
-        quality = None
+    # Quality field, should have the same dimensions of the precipitation field.
+    # Use None is not information is available.
+    quality = None
 
-        # Adjust the metadata fields according to the file format specifications.
-        # For additional information on the metadata fields, see:
-        # https://pysteps.readthedocs.io/en/latest/pysteps_reference/io.html#pysteps-io-importers
+    # Adjust the metadata fields according to the file format specifications.
+    # For additional information on the metadata fields, see:
+    # https://pysteps.readthedocs.io/en/latest/pysteps_reference/io.html#pysteps-io-importers
 
-        # The projection definition is an string with a PROJ.4-compatible projection
-        # definition of the cartographic projection used for the data
-        # More info at: https://proj.org/usage/projections.html
+    # The projection definition is an string with a PROJ.4-compatible projection
+    # definition of the cartographic projection used for the data
+    # More info at: https://proj.org/usage/projections.html
 
-        # For example:
-        projection_definition = (
-            "+proj=stere +lon_0=25E +lat_0=90N +lat_ts=60 +a=6371288 "
-            "+x_0=380886.310 +y_0=3395677.920 +no_defs",
-        )
+    # For example:
+    projection_definition = (
+        "+proj=stere +lon_0=25E +lat_0=90N +lat_ts=60 +a=6371288 "
+        "+x_0=380886.310 +y_0=3395677.920 +no_defs",
+    )
 
-        metadata = dict(
-            xpixelsize=1,
-            ypixelsize=1,
-            cartesian_unit="km",
-            unit="mm/h",
-            transform=None,
-            zerovalue=0,
-            institution="The institution that created the file",
-            projection=projection_definition,
-            yorigin="upper",
-            threshold=0.03,
-            x1=0,
-            x2=100,
-            y1=0,
-            y2=100,
-        )
+    metadata = dict(
+        xpixelsize=1,
+        ypixelsize=1,
+        cartesian_unit="km",
+        unit="mm/h",
+        transform=None,
+        zerovalue=0,
+        institution="The institution that created the file",
+        projection=projection_definition,
+        yorigin="upper",
+        threshold=0.03,
+        x1=0,
+        x2=100,
+        y1=0,
+        y2=100,
+    )
 
         # IMPORTANT! The importers should always return the following fields:
         return precip, quality, metadata
 
-elif cookiecutter.plugin_name == "diagnostics":
-# Function {{ cookiecutter.plugin_name }} to create diagnostic postprocessing plugins.
-
-# IMPORTANT: The name of the diagnostic postprocessor should follow the "diagnostic_name"
-# naming convention. The "diagnostics_" prefix to the diagnostic postprocessor name is MANDATORY since it is
-# used by the pysteps interface.
+# elif cookiecutter.plugin_name == "diagnostics":
+# # Function {{ cookiecutter.plugin_name }} to create diagnostic postprocessing plugins.
 #
-# Check the pysteps documentation for examples of diagnostic postprocessor names that follow this
-# convention:
-# https://pysteps.readthedocs.io/en/latest/pysteps_reference/io.html#available-diagnostics
+# # IMPORTANT: The name of the diagnostic postprocessor should follow the "diagnostic_name"
+# # naming convention. The "diagnostics_" prefix to the diagnostic postprocessor name is MANDATORY since it is
+# # used by the pysteps interface.
+# #
+# # Check the pysteps documentation for examples of diagnostic postprocessor names that follow this
+# # convention:
+# # https://pysteps.readthedocs.io/en/latest/pysteps_reference/io.html#available-diagnostics
+# #
+# # The function prototype for the diagnostic postprocessor's declaration should have the following form:
+# #
+# #  def diagnostics_xyz(filename, **kwargs):
+# #
+# #
+# # Function arguments
+# # ~~~~~~~~~~~~~~~~~~
+# #
+# # The function arguments should have the following form:
+# # (filename, keyword1="some_keyword", keyword2=10,...,keywordN="something", **kwargs)
+# # The `filename` and `**kwargs` arguments are mandatory to comply with the pysteps
+# # interface. To fine-control the behavior of the diagnostic postprocessor, additional keywords can be
+# # added to the function.
+# # For example: keyword1="some_keyword", keyword2=10, ..., keywordN="something"
+# # It is recommended to declare the keywords explicitly in the function to improve the
+# # readability.
+# #
+# #
+# # Return arguments
+# # ~~~~~~~~~~~~~~~~
+# #
+# # The diagnostic postprocessor can return whatever argument is needed.
+# #
+# #
 #
-# The function prototype for the diagnostic postprocessor's declaration should have the following form:
+#     def {{cookiecutter.diagnostic_name}}(filename, **kwargs):
+#       """
+#       A detailed description of the diagnostic postprocessor. A minimal documentation is
+#       strictly needed since the pysteps diagnostics interface expect docstrings.
 #
-#  def diagnostics_xyz(filename, **kwargs):
+#       For example, a documentation may look like this:
 #
+#       Carry out functionality x.
 #
-# Function arguments
-# ~~~~~~~~~~~~~~~~~~
+#       Parameters
+#         ----------
+#         filename : str
+#             Name of the file to be processed.
 #
-# The function arguments should have the following form:
-# (filename, keyword1="some_keyword", keyword2=10,...,keywordN="something", **kwargs)
-# The `filename` and `**kwargs` arguments are mandatory to comply with the pysteps
-# interface. To fine-control the behavior of the diagnostic postprocessor, additional keywords can be
-# added to the function.
-# For example: keyword1="some_keyword", keyword2=10, ..., keywordN="something"
-# It is recommended to declare the keywords explicitly in the function to improve the
-# readability.
+#         keyword1 : str
+#             Some keyword used to fine control the diagnostic postprocessor behavior.
 #
+#         keyword2 : int
+#             Another keyword used to fine control the diagnostic postprocessor behavior.
 #
-# Return arguments
-# ~~~~~~~~~~~~~~~~
+#         {extra_kwargs_doc}
 #
-# The diagnostic postprocessor can return whatever argument is needed.
-#
-#
-
-    def {{cookiecutter.diagnostic_name}}(filename, **kwargs):
-      """
-      A detailed description of the diagnostic postprocessor. A minimal documentation is
-      strictly needed since the pysteps diagnostics interface expect docstrings.
-
-      For example, a documentation may look like this:
-
-      Carry out functionality x.
-
-      Parameters
-        ----------
-        filename : str
-            Name of the file to be processed.
-
-        keyword1 : str
-            Some keyword used to fine control the diagnostic postprocessor behavior.
-
-        keyword2 : int
-            Another keyword used to fine control the diagnostic postprocessor behavior.
-
-        {extra_kwargs_doc}
-
-      Returns
-      -------.
-      """
-      ####################################################################################
-      # Add the code required to run the diagnostic postprocessor here.
-      file = open(filename, "w")
-      file.write("hello world")
-      file.close()
-      return file
+#       Returns
+#       -------.
+#       """
+#       ####################################################################################
+#       # Add the code required to run the diagnostic postprocessor here.
+#       file = open(filename, "w")
+#       file.write("hello world")
+#       file.close()
+#       return file
