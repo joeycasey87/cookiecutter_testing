@@ -32,7 +32,7 @@ setup(
         '{{ license_classifiers[cookiecutter.open_source_license] }}',
 {%- endif %}
         'Programming Language :: Python :: 3',
-      'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
     ],
@@ -45,7 +45,8 @@ setup(
     test_suite='tests',
     tests_require=test_requirements,
     include_package_data=True,
-    keywords=['{{ cookiecutter.project_slug }}', 'pysteps' , 'plugin', 'importer'],
+    keywords=['{{ cookiecutter.project_slug }}', 'pysteps' , 'plugin', '{{ cookiecutter.plugin_type }}'],
+    plugin_name = '{{ cookiecutter.plugin_name }}',
     name='{{ cookiecutter.project_name }}',
     packages=find_packages(),
     setup_requires=setup_requirements,
@@ -60,14 +61,15 @@ setup(
     #
     # An entry point is defined by three properties:
     # - The group that an entry point belongs indicate the kind of functionality that
-    #   provides. For the pysteps postprocessors use the "pysteps.plugins.postprocessors" group.
+    #   provides. For the pysteps importers use the "pysteps.plugins.importers" group.
+    #   For the pysteps diagnostic postprocessors use the "pysteps.plugins.diagnostics" group.
     # - The unique name that is used to identify this entry point in the
-    #   "pysteps.plugins.postprocessors" group.
-    # - A reference to a Python object. For the pysteps postprocessors, the object should
-    #   point to a postprocessor function, and should have the following form:
+    #   "pysteps.plugins.importers" group.
+    # - A reference to a Python object. For the pysteps importers, the object should
+    #   point to a importer function, and should have the following form:
     #   package_name.module:function.
     # The setup script uses a dictionary mapping the entry point group names to a list
-    # of strings defining the postprocessors provided by this package (our plugin).
+    # of strings defining the importers provided by this package (our plugin).
     # The general form of the entry points dictionary is:
     # entry_points={
     #     "group_name": [
@@ -75,12 +77,20 @@ setup(
     #         "entry_point_name=package_name.module:function2",
     #     ]
     # },
-    entry_points={
-        'pysteps.plugins.postprocessors': [
-            '{{cookiecutter.postprocessor_name }}_xxx={{ cookiecutter.project_slug }}.{{ cookiecutter.postprocessor_name }}:{{cookiecutter.postprocessor_name }}_xxx',
-            # Add additional postprocessors if needed.
-        ]
-    },
+    if plugin_name == 'importers':
+        entry_points={
+            'pysteps.plugins.importers': [
+                '{{cookiecutter.plugin_name }}_xxx={{ cookiecutter.project_slug }}.{{ cookiecutter.plugin_name }}:{{cookiecutter.plugin_name }}_xxx',
+                # Add additional importers if needed.
+            ]
+        },
+    elif plugin_name == 'diagnostics':
+        entry_points={
+            'pysteps.plugins.diagnostics': [
+                '{{cookiecutter.plugin_name }}={{ cookiecutter.project_slug }}.{{ cookiecutter.plugin_name }}:{{cookiecutter.plugin_name }}'
+            ]
+        },
+
     version='{{ cookiecutter.version }}',
     zip_safe=False,
 )

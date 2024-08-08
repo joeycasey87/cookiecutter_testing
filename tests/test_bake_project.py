@@ -78,7 +78,7 @@ def test_bake_with_defaults(cookies):
 
         found_toplevel_files = [f.basename for f in result.project.listdir()]
         assert 'setup.py' in found_toplevel_files
-        assert 'pysteps_postprocessor_xxx' in found_toplevel_files
+        assert 'pysteps_importer_abc' in found_toplevel_files or 'pysteps_diagnostics_xyz' in found_toplevel_files
         assert 'tox.ini' in found_toplevel_files
         assert 'tests' in found_toplevel_files
 
@@ -146,7 +146,7 @@ def test_using_pytest(cookies):
     ) as result:
         assert result.project.isdir()
         test_file_path = result.project.join(
-            'tests/test_pysteps_postprocessor_xxx.py'
+            'tests/test_pysteps_importer_abc.py'
         )
         lines = test_file_path.readlines()
         # Test the new pytest target

@@ -1,3 +1,3 @@
 
 
-from {{cookiecutter.project_slug}} import {{cookiecutter.postprocessor_name}}
+from {{cookiecutter.project_slug}} import {{cookiecutter.plugin_name}}

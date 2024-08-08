@@ -1,7 +1,7 @@
 .. _index:
 
 ======================================================
-Welcome to cookiecutter-pysteps-postprocessing-plugin's documentation
+Welcome to cookiecutter-pysteps-plugin's documentation
 ======================================================
 
 .. include:: ../README.rst
@@ -9,7 +9,7 @@ Welcome to cookiecutter-pysteps-postprocessing-plugin's documentation
     :end-before: README_END_TAG
 
 
-Create your own postprocessor plugin
+Create your own plugin
 ===============================
 
 The previous section showed us how to quickly generate a template for our plugin.
@@ -17,7 +17,7 @@ The next step is to build your plugin, using the previous skeleton as an startin
 However, this can be a daunting task if you are creating your first plugin.
 To provide a easy-to-follow introduction to the plugin architecture, in the
 :ref:`create_your_own_plugin` section we present a step-by-step guide creating,
-from scratch, a minimal working example of a postprocessors plugin.
+from scratch, a minimal working example of a pysteps plugin.
 This tutorial explains in detail all the elements needed for the plugin to work correctly.
 
 .. toctree::

@@ -1,24 +1,24 @@
 .. _create_your_own_plugin:
 
 ===============================
-Create your own postprocessor plugin
+Create your own plugin
 ===============================
 
-Since version 1.11, pysteps allows the users to add new postprocessors by installing external
+Since version 1.4, pysteps allows the users to add new functionalities by installing external
 packages, called plugins, without modifying the pysteps installation. These plugins need
 to follow a particular structure (described next) to allow pysteps to discover and
-integrate the new postprocessors to the pysteps interface without any user intervention.
+integrate the new packages to the pysteps interface without any user intervention.
 For a short description of how the plugins work, see :ref:`how_plugins_work`.
 There are two ways of creating your plugin. The first one involves building the plugin
 from scratch. An easier alternative is using a Cookiecutter template that easily builds
-the skeleton for the new importer plugin.
+the skeleton for the new plugin.
 
-There are two ways of creating a plugin. The first one is building the postprocessor plugin
+There are two ways of creating a plugin. The first one is building the plugin
 from scratch. However, an easier alternative is using this `Cookiecutter`_ template
-to create the skeleton for the new postprocessor plugin, and then customize it.
+to create the skeleton for the new plugin, and then customize it.
 However, this can be a daunting task if you are creating your first plugin.
 Hence, before customizing the cookiecutter template, let's review the main components of
-the plugin architecture by describing how to build a postprocessor plugin from scratch.
+the plugin architecture by describing how to build an plugin from scratch.
 
 After you are familiar with the plugin fundamentals, you can build your plugin from the
 cookiecutter template. For a detailed description of the template, see
@@ -29,21 +29,24 @@ cookiecutter template. For a detailed description of the template, see
 Minimal plugin project
 ----------------------
 
-Let's suppose that we want to add a new postprocessor to pysteps. The name of the
-postprocessor will be denoted as xxx.
+Let's suppose that we want to add two new importers to pysteps for reading the radar
+composites from the "Awesome Bureau of Composites", kindly abbreviated as "abc".
+The composites provided by this institution are available in two different
+formats: Netcdf and Grib2. The details of each format are not important for the rest of
+this description. Just remember the names of the two formats.
 
 Without further ado, let's create a python package  (a.k.a. the plugin) implementing the
-postprocessor. For simplicity, we will only include the elements that are strictly
+two importers. For simplicity, we will only include the elements that are strictly
 needed for the plugin to be installed and to work correctly.
 
-The minimal python package to implement an postprocessor plugin has the following
+The minimal python package to implement an importer plugin has the following
 structure:
 
 ::
 
-    pysteps-postprocessor-xxx       (project name)
-    ├── pysteps_postprocessor_xxx    (package name)
-    │  ├── postprocessor_xxx.py  (importer module)
+    pysteps-importer-abc        (project name)
+    ├── pysteps_importer_abc    (package name)
+    │  ├── importer_abc_xyz.py  (importer module)
     │  └── __init__.py          (Initialize the pysteps_importer_abc package)
     ├── setup.py                (Build and installation script)
     └── MANIFEST.in             (manifest template)
@@ -53,10 +56,10 @@ Project name
 
 ::
 
-    pysteps-postprocessor-xxx        (project name)
+    pysteps-importer-abc        (project name)
 
 For the project name, our example used the following convention:
-**pysteps-postprocessor-<postprocessor short name>**.
+**pysteps-importer-<institution short name>**.
 Note that this convention is not strictly needed, and any name can be used.
 
 Package name
@@ -64,20 +67,20 @@ Package name
 
 ::
 
-    pysteps-postprocessor-xxx
-    └── pysteps_postprocessor_xxx    (package name)
+    pysteps-importer-abc
+    └── pysteps_importer_abc    (package name)
 
-This is the name of our package containing the new postprocessor for pysteps.
+This is the name of our package containing the new importers for pysteps.
 The package name should not contain spaces, hyphens, or uppercase letters.
-For our example, the package name is **pysteps_postprocessor_xxx**.
+For our example, the package name is **pysteps_importer_abc**.
 
 \__init__.py
 ~~~~~~~~~~~~
 
 ::
 
-    pysteps-postprocessor-xxx
-        ├── pysteps_postprocessor_xxx
+    pysteps-importer-abc
+        ├── pysteps_importer_abc
         └───── __init__.py
 
 The __init__.py files are required to inform python that a given directory contains a
@@ -89,15 +92,16 @@ Importer module
 
 ::
 
-    pysteps-postprocessor-xxx
-        ├── pysteps_postprocessor_xxx
-        └───── postprocessor_xxx.py  (postprocessor module)
+    pysteps-importer-abc
+        ├── pysteps_importer_abc
+        └───── importer_abc_xyz.py  (importer module)
 
-Inside the package folder (*pysteps_postprocessor_xxx*), we place the python module
-(or modules) containing the actual implementation of our new postprocessor.
-Below, there is an example of an postprocessor module that implements the skeleton of a postprocessor:
+Inside the package folder (*pysteps_importer_abc*), we place the python module
+(or modules) containing the actual implementation of our new importers.
+Below, there is an example of an importer module that implements the skeleton of two
+different importers (the "grib" and "netcdf" importer that we are using as an example):
 
-.. literalinclude:: postprocessor_module_example.py
+.. literalinclude:: importers_module_example.py
    :language: python
 
 
@@ -106,7 +110,7 @@ setup.py
 
 ::
 
-    pysteps-postprocessor-xxx       (project name)
+    pysteps-importer-abc        (project name)
     └── setup.py                (Build and installation script)
 
 The `setup.py` file contains all the definitions for building, distributing, and
