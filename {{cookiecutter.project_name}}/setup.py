@@ -23,6 +23,20 @@ test_requirements = ['pytest>=3']
     'GNU General Public License v3': 'License :: OSI Approved :: GNU General Public License v3 (GPLv3)'
 } %}
 
+if plugin_name.lower() == 'diagnostics':
+    entry = {
+        'pysteps.plugins.diagnostics': [
+            '{{cookiecutter.plugin_name }}={{ cookiecutter.project_slug }}.{{ cookiecutter.plugin_name }}:{{cookiecutter.plugin_name }}'
+        ]
+    }
+else:
+    entry = {
+        'pysteps.plugins.importers': [
+            '{{cookiecutter.plugin_name }}_xxx={{ cookiecutter.project_slug }}.{{ cookiecutter.plugin_name }}:{{cookiecutter.plugin_name }}_xxx',
+            # Add additional importers if needed.
+        ]
+    }
+
 setup(
     author="{{ cookiecutter.full_name.replace('\"', '\\\"') }}",
     author_email='{{ cookiecutter.email }}',
@@ -76,20 +90,7 @@ setup(
     #         "entry_point_name=package_name.module:function2",
     #     ]
     # },
-    if plugin_name == 'importers':
-        entry_points={
-            'pysteps.plugins.importers': [
-                '{{cookiecutter.plugin_name }}_xxx={{ cookiecutter.project_slug }}.{{ cookiecutter.plugin_name }}:{{cookiecutter.plugin_name }}_xxx',
-                # Add additional importers if needed.
-            ]
-        },
-    elif plugin_name == 'diagnostics':
-        entry_points={
-            'pysteps.plugins.diagnostics': [
-                '{{cookiecutter.plugin_name }}={{ cookiecutter.project_slug }}.{{ cookiecutter.plugin_name }}:{{cookiecutter.plugin_name }}'
-            ]
-        },
-
+    entry_points = entry,
     version='{{ cookiecutter.version }}',
     zip_safe=False,
 )

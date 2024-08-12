@@ -21,7 +21,7 @@ def test_plugins_discovery():
     elif plugin_name =='diagnostics':
         new_diagnostics = ["{{cookiecutter.plugin_name }}"]
         for diagnostic in new_diagnostics:
-            assert  diagnostic.replace("diagnostics-") in pp_interface._diagnostics_methods
+            assert  diagnostic.replace("diagnostics_") in pp_interface._diagnostics_methods
 
 
 def test_importers_with_files():

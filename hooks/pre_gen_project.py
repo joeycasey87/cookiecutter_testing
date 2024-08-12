@@ -14,10 +14,8 @@ if not re.match(MODULE_REGEX, module_name):
     sys.exit(1)
 
 plugin_name = "{{ cookiecutter.plugin_name}}"
-if not plugin_name.startswith("importer_") or not plugin_name.startswith(
-    "diagnostics_"
-):
+if plugin_name != "importer" and plugin_name != "diagnostics":
     print(
-        '\nERROR: The plugin_name must start with the "importer_" or the "diagnostics_" prefix'
+        '\nERROR: The plugin_name must be "importer" or "diagnostics"'
     )
     sys.exit(1)
