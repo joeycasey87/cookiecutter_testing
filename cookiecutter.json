@@ -1,11 +1,10 @@
 {
   "full_name": "Your Name",
   "email": "your@email.com",
-  "plugin_type": ["importer", "diagnostics"],
-  "project_name": "For an importer plugin, project name should be pysteps-importer-abc where abc is the name of the institution. E.g. pysteps-importer-knmi. For a diagnostics plugin, project_name should be pysteps-diagnostics-xyz where xyz is the name of the plugin. E.g. pysteps-diagnostics-prtype",
+  "plugin_type": "importer",
+  "project_name": "pysteps-importer-abc",
   "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
   "project_short_description": "Pysteps plugin adding x functionality",
-  "plugin_name": "importer or diagnostics",
   "version": "0.1.0",
   "open_source_license": ["MIT license", "BSD license", "ISC license", "GNU General Public License v3", "Apache Software License 2.0", "Not open source"]
 }

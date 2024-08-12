@@ -23,16 +23,16 @@ test_requirements = ['pytest>=3']
     'GNU General Public License v3': 'License :: OSI Approved :: GNU General Public License v3 (GPLv3)'
 } %}
 
-if plugin_name.lower() == 'diagnostics':
+if cookiecutter.plugin_type.lower() == 'diagnostics':
     entry = {
         'pysteps.plugins.diagnostics': [
-            '{{cookiecutter.plugin_name }}={{ cookiecutter.project_slug }}.{{ cookiecutter.plugin_name }}:{{cookiecutter.plugin_name }}'
+            '{{cookiecutter.plugin_type }}={{ cookiecutter.project_slug }}.{{ cookiecutter.plugin_type }}:{{cookiecutter.plugin_type }}'
         ]
     }
 else:
     entry = {
         'pysteps.plugins.importers': [
-            '{{cookiecutter.plugin_name }}_xxx={{ cookiecutter.project_slug }}.{{ cookiecutter.plugin_name }}:{{cookiecutter.plugin_name }}_xxx',
+            '{{cookiecutter.plugin_type }}_xxx={{ cookiecutter.project_slug }}.{{ cookiecutter.plugin_type }}:{{cookiecutter.plugin_type }}_xxx',
             # Add additional importers if needed.
         ]
     }
@@ -59,7 +59,6 @@ setup(
     tests_require=test_requirements,
     include_package_data=True,
     keywords=['{{ cookiecutter.project_slug }}', 'pysteps' , 'plugin', '{{ cookiecutter.plugin_type }}'],
-    plugin_name = '{{ cookiecutter.plugin_name }}',
     name='{{ cookiecutter.project_name }}',
     packages=find_packages(),
     setup_requires=setup_requirements,

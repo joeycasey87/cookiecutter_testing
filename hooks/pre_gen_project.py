@@ -13,9 +13,9 @@ if not re.match(MODULE_REGEX, module_name):
     # Exit to cancel project
     sys.exit(1)
 
-plugin_name = "{{ cookiecutter.plugin_name}}"
-if plugin_name != "importer" and plugin_name != "diagnostics":
+plugin_type = "{{ cookiecutter.plugin_type}}"
+if plugin_type != "importer" and plugin_type != "diagnostics":
     print(
-        '\nERROR: The plugin_name must be "importer" or "diagnostics"'
+        '\nERROR: The plugin_type must be "importer" or "diagnostics"'
     )
     sys.exit(1)

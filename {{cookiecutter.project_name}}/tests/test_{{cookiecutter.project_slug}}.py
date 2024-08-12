@@ -12,14 +12,14 @@ def test_plugins_discovery():
     from pysteps.postprocessing import interface as pp_interface
 
 
-    plugin_name = '{{cookiecutter.plugin_name}}'
-    if plugin_name == "importer":
-        new_importers = ["{{cookiecutter.plugin_name }}_xxx"]
+    plugin_type = '{{cookiecutter.plugin_type}}'
+    if plugin_type == "importer":
+        new_importers = ["{{cookiecutter.plugin_type }}_xxx"]
         for importer in new_importers:
             assert importer.replace("import_", "") in io_interface._importer_methods
 
-    elif plugin_name =='diagnostics':
-        new_diagnostics = ["{{cookiecutter.plugin_name }}"]
+    elif plugin_type =='diagnostics':
+        new_diagnostics = ["{{cookiecutter.plugin_type }}"]
         for diagnostic in new_diagnostics:
             assert  diagnostic.replace("diagnostics_") in pp_interface._diagnostics_methods
 

@@ -8,7 +8,7 @@ in this module and other relevant information.
 
 # Import the needed libraries
 
-### Uncomment the next lines if pyproj is needed for the importer.
+### Uncomment the next lines if pyproj is needed for the diagnostic postprocessor.
 # try:
 #     import pyproj
 #
@@ -16,10 +16,10 @@ in this module and other relevant information.
 # except ImportError:
 #     PYPROJ_IMPORTED = False
 
-# Function {{ cookiecutter.plugin_name }} to create diagnostic postprocessing plugins.
+# Function {{ cookiecutter.diagnostic_plugin_name }} to create diagnostic postprocessing plugins.
 
 # IMPORTANT: The name of the diagnostic postprocessor should follow the "diagnostic_name"
-# naming convention. The "diagnostics_" prefix to the diagnostic postprocessor name is MANDATORY since it is
+# naming convention. The "diagnostic_" prefix to the diagnostic postprocessor name is MANDATORY since it is
 # used by the pysteps interface.
 #
 # Check the pysteps documentation for examples of diagnostic postprocessor names that follow this
@@ -28,7 +28,7 @@ in this module and other relevant information.
 #
 # The function prototype for the diagnostic postprocessor's declaration should have the following form:
 #
-#  def diagnostics_xyz(filename, **kwargs):
+#  def diagnostic_xyz(filename, **kwargs):
 #
 #
 # Function arguments
@@ -37,7 +37,7 @@ in this module and other relevant information.
 # The function arguments should have the following form:
 # (filename, keyword1="some_keyword", keyword2=10,...,keywordN="something", **kwargs)
 # The `filename` and `**kwargs` arguments are mandatory to comply with the pysteps
-# interface. To fine-control the behavior of the diagnostic postprocessor, additional keywords can be
+# interface. To fine-control the behaviour of the diagnostic postprocessor, additional keywords can be
 # added to the function.
 # For example: keyword1="some_keyword", keyword2=10, ..., keywordN="something"
 # It is recommended to declare the keywords explicitly in the function to improve the
@@ -51,7 +51,7 @@ in this module and other relevant information.
 #
 #
 
-def {{cookiecutter.diagnostic_name}}(filename, **kwargs):
+def {{cookiecutter.plugin_name}}(filename, **kwargs):
       """
       A detailed description of the diagnostic postprocessor. A minimal documentation is
       strictly needed since the pysteps diagnostics interface expect docstrings.
