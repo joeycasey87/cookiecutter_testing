@@ -37,8 +37,8 @@ def bake_in_temp_dir(cookies, *args, **kwargs):
     try:
         yield result
     finally:
-        if result.project_path is not None and os.path.exists(result.project_path):
-            rmtree(str(result.project_path))
+        if result.project is not None and os.path.exists(result.project):
+            rmtree(str(result.project))
 
 
 def run_inside_dir(command, dirpath):
@@ -59,7 +59,7 @@ def check_output_inside_dir(command, dirpath):
 
 def test_year_compute_in_license_file(cookies):
     with bake_in_temp_dir(cookies) as result:
-        license_file_path = str(result.project_path).join("LICENSE")
+        license_file_path = result.project.join("LICENSE")
         now = datetime.datetime.now()
         assert str(now.year) in license_file_path.read()
 
@@ -74,11 +74,11 @@ def project_info(result):
 
 def test_bake_with_defaults(cookies):
     with bake_in_temp_dir(cookies) as result:
-        assert result.project_path.isdir()
+        assert result.project.isdir()
         assert result.exit_code == 0
         assert result.exception is None
 
-        found_toplevel_files = [f.basename for f in result.project_path.listdir()]
+        found_toplevel_files = [f.basename for f in result.project.listdir()]
         assert "setup.py" in found_toplevel_files
         assert (
             "pysteps_importer_abc" in found_toplevel_files
@@ -90,8 +90,8 @@ def test_bake_with_defaults(cookies):
 
 def test_bake_and_run_tests(cookies):
     with bake_in_temp_dir(cookies) as result:
-        assert result.project_path.isdir()
-        assert run_inside_dir("python setup.py test", str(result.project_path)) == 0
+        assert result.project.isdir()
+        assert run_inside_dir("python setup.py test", str(result.project)) == 0
 
 
 def test_bake_withspecialchars_and_run_tests(cookies):
@@ -99,15 +99,15 @@ def test_bake_withspecialchars_and_run_tests(cookies):
     with bake_in_temp_dir(
         cookies, extra_context={"full_name": 'name "quote" name'}
     ) as result:
-        assert result.project_path.isdir()
-        assert run_inside_dir("python setup.py test", str(result.project_path)) == 0
+        assert result.project.isdir()
+        assert run_inside_dir("python setup.py test", str(result.project)) == 0
 
 
 def test_bake_with_apostrophe_and_run_tests(cookies):
     """Ensure that a `full_name` with apostrophes does not break setup.py"""
     with bake_in_temp_dir(cookies, extra_context={"full_name": "O'connor"}) as result:
-        assert result.project_path.isdir()
-        assert run_inside_dir("python setup.py test", str(result.project_path)) == 0
+        assert result.project.isdir()
+        assert run_inside_dir("python setup.py test", str(result.project)) == 0
 
 
 def test_bake_selecting_license(cookies):
@@ -123,26 +123,26 @@ def test_bake_selecting_license(cookies):
         with bake_in_temp_dir(
             cookies, extra_context={"open_source_license": license}
         ) as result:
-            assert target_string in result.project_path.join("LICENSE").read()
-            assert license in result.project_path.join("setup.py").read()
+            assert target_string in result.project.join("LICENSE").read()
+            assert license in result.project.join("setup.py").read()
 
 
 def test_bake_not_open_source(cookies):
     with bake_in_temp_dir(
         cookies, extra_context={"open_source_license": "Not open source"}
     ) as result:
-        found_toplevel_files = [f.basename for f in result.project_path.listdir()]
+        found_toplevel_files = [f.basename for f in result.project.listdir()]
         assert "setup.py" in found_toplevel_files
         assert "LICENSE" not in found_toplevel_files
-        assert "License" not in result.project_path.join("README.rst").read()
+        assert "License" not in result.project.join("README.rst").read()
 
 
 def test_using_pytest(cookies):
     with bake_in_temp_dir(cookies, extra_context={"use_pytest": "y"}) as result:
-        assert result.project_path.isdir()
-        test_file_path = result.project_path.join("tests/test_pysteps_importer_abc.py")
+        assert result.project.isdir()
+        test_file_path = result.project.join("tests/test_pysteps_importer_abc.py")
         lines = test_file_path.readlines()
         # Test the new pytest target
-        assert run_inside_dir("python setup.py pytest", str(result.project_path)) == 0
+        assert run_inside_dir("python setup.py pytest", str(result.project)) == 0
         # Test the test alias (which invokes pytest)
-        assert run_inside_dir("python setup.py test", str(result.project_path)) == 0
+        assert run_inside_dir("python setup.py test", str(result.project)) == 0
