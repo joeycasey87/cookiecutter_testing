@@ -32,7 +32,7 @@ if cookiecutter.plugin_type.lower() == 'diagnostics':
 else:
     entry = {
         'pysteps.plugins.importers': [
-            '{{cookiecutter.plugin_type }}_xxx={{ cookiecutter.project_slug }}.{{ cookiecutter.plugin_type }}:{{cookiecutter.plugin_type }}_xxx',
+            '{{cookiecutter.plugin_name }}={{ cookiecutter.project_slug }}.{{ cookiecutter.plugin_name }}:{{cookiecutter.plugin_name }}',
             # Add additional importers if needed.
         ]
     }

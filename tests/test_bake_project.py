@@ -37,7 +37,8 @@ def bake_in_temp_dir(cookies, *args, **kwargs):
     try:
         yield result
     finally:
-        rmtree(str(result.project_path))
+        if result.project_path is not None and os.path.exists(result.project_path):
+            rmtree(str(result.project_path))
 
 
 def run_inside_dir(command, dirpath):

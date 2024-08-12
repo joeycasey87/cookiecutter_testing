@@ -14,14 +14,14 @@ def test_plugins_discovery():
 
     plugin_type = '{{cookiecutter.plugin_type}}'
     if plugin_type == "importer":
-        new_importers = ["{{cookiecutter.plugin_type }}_xxx"]
+        new_importers = ["{{cookiecutter.plugin_name }}"]
         for importer in new_importers:
             assert importer.replace("import_", "") in io_interface._importer_methods
 
     elif plugin_type =='diagnostics':
-        new_diagnostics = ["{{cookiecutter.plugin_type }}"]
+        new_diagnostics = ["{{cookiecutter.plugin_name }}"]
         for diagnostic in new_diagnostics:
-            assert  diagnostic.replace("diagnostics_") in pp_interface._diagnostics_methods
+            assert  diagnostic.replace("diagnostics_", "") in pp_interface._diagnostics_methods
 
 
 def test_importers_with_files():
