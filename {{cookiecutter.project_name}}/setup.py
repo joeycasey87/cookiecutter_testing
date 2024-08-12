@@ -23,7 +23,7 @@ test_requirements = ['pytest>=3']
     'GNU General Public License v3': 'License :: OSI Approved :: GNU General Public License v3 (GPLv3)'
 } %}
 
-if cookiecutter.plugin_type.lower() == 'diagnostics':
+if "{{ cookiecutter.plugin_type }}".lower() == 'diagnostics':
     entry = {
         'pysteps.plugins.diagnostics': [
             '{{cookiecutter.plugin_type }}={{ cookiecutter.project_slug }}.{{ cookiecutter.plugin_type }}:{{cookiecutter.plugin_type }}'
