@@ -170,5 +170,5 @@ def {{cookiecutter.plugin_name }}(filename, keyword1="some_keyword", keyword2=10
         y2=100,
     )
 
-        # IMPORTANT! The importers should always return the following fields:
-        return precip, quality, metadata
+    # IMPORTANT! The importers should always return the following fields:
+    return precip, quality, metadata
