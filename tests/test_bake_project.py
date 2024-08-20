@@ -82,7 +82,6 @@ def test_bake_with_defaults(cookies):
         assert "setup.py" in found_toplevel_files
         assert (
             "pysteps_importer_abc" in found_toplevel_files
-            or "pysteps_diagnostics_xyz" in found_toplevel_files
         )
         assert "tox.ini" in found_toplevel_files
         assert "tests" in found_toplevel_files
