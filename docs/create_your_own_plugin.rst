@@ -10,12 +10,9 @@ to follow a particular structure (described next) to allow pysteps to discover a
 integrate the new packages to the pysteps interface without any user intervention.
 For a short description of how the plugins work, see :ref:`how_plugins_work`.
 There are two ways of creating your plugin. The first one involves building the plugin
-from scratch. An easier alternative is using a Cookiecutter template that easily builds
-the skeleton for the new plugin.
+from scratch. An easier alternative is using a `Cookiecutter`_ template that easily builds
+the skeleton for the new plugin. This skeleton can then be customised to the user's preference.
 
-There are two ways of creating a plugin. The first one is building the plugin
-from scratch. However, an easier alternative is using this `Cookiecutter`_ template
-to create the skeleton for the new plugin, and then customize it.
 However, this can be a daunting task if you are creating your first plugin.
 Hence, before customizing the cookiecutter template, let's review the main components of
 the plugin architecture by describing how to build an plugin from scratch.
